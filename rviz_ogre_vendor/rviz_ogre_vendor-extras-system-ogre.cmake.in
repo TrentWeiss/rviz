@@ -1,0 +1,15 @@
+if(TARGET rviz_ogre_vendor::OgreMain)
+  return()
+endif()
+set(ogre_comps_ @ogre_components@)
+find_package(OGRE REQUIRED COMPONENTS ${ogre_comps_})
+
+set_target_properties(OgreMain PROPERTIES IMPORTED_GLOBAL True)
+add_library(rviz_ogre_vendor::OgreMain ALIAS OgreMain)
+foreach(ogre_target_ IN LISTS ogre_comps_)
+  set_target_properties(Ogre${ogre_target_} PROPERTIES IMPORTED_GLOBAL True)
+  add_library(rviz_ogre_vendor::Ogre${ogre_target_} ALIAS Ogre${ogre_target_})
+endforeach()
+
+
+

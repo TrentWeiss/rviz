@@ -1,0 +1,5 @@
+foreach(plugin IN LISTS OGRE_PLUGINS)
+    file(GLOB files_ "${OGRE_PLUGIN_DIR}/${plugin}.*" LIST_DIRECTORIES FALSE)
+    install(FILES ${files_} DESTINATION opt/rviz_ogre_vendor/bin)
+endforeach()
+install(DIRECTORY ${OGRE_MEDIA_DIR} DESTINATION opt/rviz_ogre_vendor)
