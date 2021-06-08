@@ -2,6 +2,19 @@
 Changelog for package rviz_ogre_vendor
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+8.6.0 (2021-05-13)
+------------------
+* Strip RPATH from installed Ogre binaries (`#688 <https://github.com/ros2/rviz/issues/688>`_)
+* Contributors: Michel Hidalgo
+
+8.5.0 (2021-04-06)
+------------------
+
+8.4.0 (2021-03-18)
+------------------
+* Always preserve source permissions in vendor packages (`#647 <https://github.com/ros2/rviz/issues/647>`_)
+* Contributors: Scott K Logan
+
 8.3.1 (2021-01-25)
 ------------------
 

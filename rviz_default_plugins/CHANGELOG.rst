@@ -2,6 +2,22 @@
 Changelog for package rviz_default_plugins
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+8.6.0 (2021-05-13)
+------------------
+* Export Qt5 dependencies properly (`#687 <https://github.com/ros2/rviz/issues/687>`_)
+* Add support for namespace-scoped DELETEALL action in Marker displays (`#685 <https://github.com/ros2/rviz/issues/685>`_)
+* Use image_transport to subscribe to image messages (`#523 <https://github.com/ros2/rviz/issues/523>`_)
+* Contributors: Audrow Nash, ketatam, Martin Idel, Michel Hidalgo
+
+8.5.0 (2021-04-06)
+------------------
+
+8.4.0 (2021-03-18)
+------------------
+* Add ViewPicker::get3DPatch to the public API (`#657 <https://github.com/ros2/rviz/issues/657>`_)
+* Allow to zoom more with orbit controller (`#654 <https://github.com/ros2/rviz/issues/654>`_)
+* Contributors: Joseph Schornak, Victor Lamoine
+
 8.3.1 (2021-01-25)
 ------------------
 * Fix possible nullptr access in robot_joint.cpp. (`#636 <https://github.com/ros2/rviz/issues/636>`_)

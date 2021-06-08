@@ -2,6 +2,22 @@
 Changelog for package rviz_rendering
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+8.6.0 (2021-05-13)
+------------------
+* Export Qt5 dependencies properly (`#687 <https://github.com/ros2/rviz/issues/687>`_)
+* Putting glsl 1.50 resources back in RenderSystem (`#668 <https://github.com/ros2/rviz/issues/668>`_)
+* Contributors: Michel Hidalgo, Piotr Jaroszek
+
+8.5.0 (2021-04-06)
+------------------
+
+8.4.0 (2021-03-18)
+------------------
+* reset current line width when calculating text width (`#655 <https://github.com/ros2/rviz/issues/655>`_)
+* Silence a dead store warning. (`#643 <https://github.com/ros2/rviz/issues/643>`_)
+* Fix a memory leak when using the ResourceIOSystem. (`#641 <https://github.com/ros2/rviz/issues/641>`_)
+* Contributors: Chris Lalancette, ipa-fez
+
 8.3.1 (2021-01-25)
 ------------------
 * Revert "Support loading meshes other than .mesh and .stl with package URIs (`#610 <https://github.com/ros2/rviz/issues/610>`_)" (`#638 <https://github.com/ros2/rviz/issues/638>`_)

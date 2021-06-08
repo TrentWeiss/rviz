@@ -2,6 +2,23 @@
 Changelog for package rviz_common
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+8.6.0 (2021-05-13)
+------------------
+
+8.5.0 (2021-04-06)
+------------------
+* Add visualization_frame to the public API (`#660 <https://github.com/ros2/rviz/issues/660>`_)
+* Contributors: Jafar Abdi
+
+8.4.0 (2021-03-18)
+------------------
+* Add ViewPicker::get3DPatch to the public API (`#657 <https://github.com/ros2/rviz/issues/657>`_)
+* Fix byte indexing for depth patch pixels (`#661 <https://github.com/ros2/rviz/issues/661>`_)
+* fix toolbar vanishing when pressing escape (`#656 <https://github.com/ros2/rviz/issues/656>`_)
+* Expose VisualizationManager and YamlConfigReader to the public API (`#649 <https://github.com/ros2/rviz/issues/649>`_)
+* Use the stack for the classes in the property test. (`#644 <https://github.com/ros2/rviz/issues/644>`_)
+* Contributors: Chris Lalancette, Joseph Schornak, ipa-fez
+
 8.3.1 (2021-01-25)
 ------------------
 * Check that the views_man\_ and views_man\_->getCurrent() are not nullptr. (`#634 <https://github.com/ros2/rviz/issues/634>`_)

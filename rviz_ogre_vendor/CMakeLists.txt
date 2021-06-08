@@ -60,6 +60,7 @@ macro(build_freetype)
       ${CMAKE_CURRENT_BINARY_DIR}/freetype_install/
     DESTINATION
       ${CMAKE_INSTALL_PREFIX}/opt/rviz_ogre_vendor
+    USE_SOURCE_PERMISSIONS
   )
 endmacro()
 
@@ -98,6 +99,7 @@ macro(build_zlib)
       ${CMAKE_CURRENT_BINARY_DIR}/zlib-install/
     DESTINATION
       ${CMAKE_INSTALL_PREFIX}/opt/rviz_ogre_vendor
+    USE_SOURCE_PERMISSIONS
   )
 endmacro()
 
@@ -172,6 +174,7 @@ macro(build_ogre)
       -DOGRE_INSTALL_SAMPLES_SOURCE:BOOL=FALSE
       -DOGRE_CONFIG_THREADS:STRING=0
       -DOGRE_RESOURCEMANAGER_STRICT:STRING=2
+      -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
       -DCMAKE_INSTALL_PREFIX=${CMAKE_CURRENT_BINARY_DIR}/ogre_install
       -DOGRE_BUILD_LIBS_AS_FRAMEWORKS:BOOL=OFF
       -DOGRE_BUILD_COMPONENT_PYTHON:BOOL=FALSE
@@ -199,6 +202,7 @@ macro(build_ogre)
       ${CMAKE_CURRENT_BINARY_DIR}/ogre_install/
     DESTINATION
       ${CMAKE_INSTALL_PREFIX}/opt/rviz_ogre_vendor
+    USE_SOURCE_PERMISSIONS
   )
 endmacro()
 
