@@ -13,7 +13,13 @@
 #  FREETYPE_FOUND - system has FreeType
 #  FREETYPE_INCLUDE_DIRS - the FreeType include directories 
 #  FREETYPE_LIBRARIES - link these to use FreeType
-
+find_package(Freetype CONFIG QUIET)
+if(TARGET freetype)
+  set(FREETYPE_FOUND TRUE)
+  set(FREETYPE_LIBRARIES freetype)
+  get_target_property(FREETYPE_INCLUDE_DIRS freetype INTERFACE_INCLUDE_DIRECTORIES)
+  return()
+endif()
 include(FindPkgMacros)
 findpkg_begin(FREETYPE)
 
