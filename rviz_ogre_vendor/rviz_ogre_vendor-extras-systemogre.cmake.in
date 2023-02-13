@@ -1,0 +1,32 @@
+include(CMakeFindDependencyMacro)
+find_dependency(OGRE CONFIG)
+set(OGRE_FOUND ((TARGET OgreMain) AND ((TARGET OgreOverlay)) AND ((TARGET OgreGLSupport))))
+
+if(NOT (TARGET rviz_ogre_vendor::OgreMain))
+  message(STATUS " Adding rviz_ogre_vendor::OgreMain target ")
+  add_library(rviz_ogre_vendor::OgreMain INTERFACE IMPORTED GLOBAL)
+  find_dependency(OpenGL)
+  set_target_properties(rviz_ogre_vendor::OgreMain 
+    PROPERTIES 
+      INTERFACE_LINK_LIBRARIES 
+        OgreMain ${OPENGL_LIBRARIES} ${CMAKE_DL_LIBS}
+  )
+endif()
+
+if(NOT (TARGET rviz_ogre_vendor::OgreOverlay))
+  message(STATUS " Adding rviz_ogre_vendor::OgreOverlay target ")
+  add_library(rviz_ogre_vendor::OgreOverlay INTERFACE IMPORTED GLOBAL)
+  set_target_properties(rviz_ogre_vendor::OgreOverlay 
+    PROPERTIES 
+      INTERFACE_LINK_LIBRARIES OgreOverlay
+  )
+endif()
+
+if(NOT (TARGET rviz_ogre_vendor::OgreGLSupport))
+  message(STATUS " Adding rviz_ogre_vendor::OgreGLSupport target ")
+  add_library(rviz_ogre_vendor::OgreGLSupport INTERFACE IMPORTED GLOBAL)
+  set_target_properties(rviz_ogre_vendor::OgreGLSupport 
+    PROPERTIES 
+      INTERFACE_LINK_LIBRARIES OgreGLSupport
+  )
+endif()

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.18)
 
 project(rviz_ogre_vendor)
 
@@ -215,35 +215,67 @@ macro(build_ogre)
   )
 endmacro()
 
-if(BUILDING_FREETYPE_LOCALLY)
+find_package(OGRE CONFIG QUIET)
+set(OGRE_FOUND ((TARGET OgreMain) AND ((TARGET OgreOverlay)) AND ((TARGET OgreGLSupport))))
+
+if((NOT ${OGRE_FOUND}) AND BUILDING_FREETYPE_LOCALLY)
+  #We found system ogre, vendored freetype is not needed
   build_freetype()
 endif()
-if(BUILDING_ZLIB_LOCALLY)
+if((NOT ${OGRE_FOUND}) AND BUILDING_ZLIB_LOCALLY)
+  #We found system ogre, vendored zlib is not needed
   build_zlib()
 endif()
-
-build_ogre()
-
-if(WIN32)
-  ament_environment_hooks(env_hook/rviz_ogre_vendor_library_path.bat)
-  set(ENV_VAR_NAME "PATH")
-  set(ENV_VAR_VALUE "opt\\rviz_ogre_vendor\\bin")
-else()
-  ament_environment_hooks(env_hook/rviz_ogre_vendor_library_path.sh)
-  if(APPLE)
-    set(ENV_VAR_NAME "DYLD_LIBRARY_PATH")
-  else()
-    set(ENV_VAR_NAME "LD_LIBRARY_PATH")
-  endif()
-  set(ENV_VAR_VALUE "opt/rviz_ogre_vendor/lib")
-endif()
-ament_environment_hooks(env_hook/rviz_ogre_vendor_library_path.dsv.in)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-ament_package(
-  CONFIG_EXTRAS "rviz_ogre_vendor-extras.cmake.in"
-)
+if(OGRE_FOUND)
+  #We found system ogre, no need to build the vendored version
+  ament_package(
+      CONFIG_EXTRAS "rviz_ogre_vendor-extras-systemogre.cmake.in"
+    )
+
+  message(STATUS "Installing plugins ${OGRE_PLUGINS} in ${OGRE_PLUGIN_DIR}")
+  if(WIN32)
+    set(_lib_extension ".dll")
+    set(PLUGIN_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/opt/${PROJECT_NAME}/bin)
+  elseif(APPLE)
+    set(_lib_extension ".dylib")
+    set(PLUGIN_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/opt/${PROJECT_NAME}/lib/OGRE)
+  else()
+    set(_lib_extension ".so")
+    set(PLUGIN_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/opt/${PROJECT_NAME}/lib/OGRE)
+  endif()
+  foreach(ogre_plugin IN LISTS OGRE_PLUGINS)
+    set(plugin_file ${OGRE_PLUGIN_DIR}/${ogre_plugin}${_lib_extension})
+    if(EXISTS ${plugin_file})
+      install(FILES ${plugin_file} DESTINATION ${PLUGIN_INSTALL_DIR}) 
+    endif()
+  endforeach()
+  
+else()
+  build_ogre()
+
+    if(WIN32)
+      ament_environment_hooks(env_hook/rviz_ogre_vendor_library_path.bat)
+      set(ENV_VAR_NAME "PATH")
+      set(ENV_VAR_VALUE "opt\\rviz_ogre_vendor\\bin")
+    else()
+      ament_environment_hooks(env_hook/rviz_ogre_vendor_library_path.sh)
+      if(APPLE)
+        set(ENV_VAR_NAME "DYLD_LIBRARY_PATH")
+      else()
+        set(ENV_VAR_NAME "LD_LIBRARY_PATH")
+      endif()
+      set(ENV_VAR_VALUE "opt/rviz_ogre_vendor/lib")
+    endif()
+    ament_environment_hooks(env_hook/rviz_ogre_vendor_library_path.dsv.in)
+
+
+    ament_package(
+      CONFIG_EXTRAS "rviz_ogre_vendor-extras.cmake.in"
+    )
+endif()
