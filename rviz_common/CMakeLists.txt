@@ -238,6 +238,9 @@ target_link_libraries(rviz_common
   rviz_ogre_vendor::OgreOverlay
   Qt5::Widgets
 )
+if(WIN32)
+  target_compile_definitions(rviz_common PUBLIC "YAML_CPP_DLL")
+endif()
 
 ament_target_dependencies(rviz_common
   PUBLIC
