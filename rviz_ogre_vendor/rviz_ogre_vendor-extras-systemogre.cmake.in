@@ -1,15 +1,21 @@
 include(CMakeFindDependencyMacro)
-find_dependency(OGRE CONFIG)
+find_dependency(OGRE)
 set(OGRE_FOUND ((TARGET OgreMain) AND ((TARGET OgreOverlay)) AND ((TARGET OgreGLSupport))))
 
 if(NOT (TARGET rviz_ogre_vendor::OgreMain))
   message(STATUS " Adding rviz_ogre_vendor::OgreMain target ")
   add_library(rviz_ogre_vendor::OgreMain INTERFACE IMPORTED GLOBAL)
-  find_dependency(OpenGL)
+  #Find opengl and add it's imported targets
+  find_dependency(OpenGL COMPONENTS OpenGL)
+  #There's no imported target for DL, so use a _LIBS variable like an unwashed barbarian
+  set(ogremaindeps "${CMAKE_DL_LIBS};OgreMain;OpenGL::GL")
+  if(TARGET OpenGL::EGL)
+    list(APPEND ogremaindeps OpenGL::EGL)
+  endif()
   set_target_properties(rviz_ogre_vendor::OgreMain 
     PROPERTIES 
       INTERFACE_LINK_LIBRARIES 
-        OgreMain ${OPENGL_LIBRARIES} ${CMAKE_DL_LIBS}
+        "${ogremaindeps}"
   )
 endif()
 
